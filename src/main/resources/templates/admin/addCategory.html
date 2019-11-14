@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>导航栏</title>
+
+    <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/jquery.validate.min.js"></script>
+    <script src="/scripts/messages_zh.min.js"></script>
+    <script src="/scripts/jquery-ui.min.js"></script>
+    <script src="/scripts/admin/addBookCategory.js"></script>
+    <script src="/scripts/base/base.js"></script>
+
+    <link href="/css/myUIstyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/css/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="/css/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="/css/login/updateUser.css">
+
+    <style>
+        *{
+            margin:0px auto;}
+
+        tr:nth-child(even){
+            color:#000000;
+            background-color:#EAF2D3;}
+        tr:hover{
+            background-color: #c2ffc1;}
+
+        #customers
+        {
+            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        #customers td, #customers th
+        {
+            font-size:1em;
+            border:1px solid #a3c7c4;
+            padding:3px 7px 2px 7px;
+        }
+
+        #customers th
+        {
+            font-size:1.1em;
+            text-align:left;
+            padding-top:5px;
+            padding-bottom:4px;
+            background-color:#a3c7c4;
+            color:#ffffff;
+        }
+
+        #customers tr.alt td
+        {
+            color:#000000;
+            background-color:#EAF2D3;
+        }
+
+        #btn_addBookCategory{
+            padding: 15px 40px;
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #6b8223b0;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        #btn_addBookCategory:hover {background-color: #3e8e41}
+
+        #btn_addBookCategory:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        .selectInput{
+            outline-style: none ;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 13px 14px;
+            width: 200px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: "Microsoft soft";
+        }
+
+        .btn_deleteCategory {
+            background-color: #33af90; /* Green */
+            border: none;
+            border: none;
+            color: white;
+            padding: 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 5px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .btn_deleteCategory {border-radius: 8px;}
+
+        .btn_updateCategory {
+            background-color: #33af90; /* Green */
+            border: none;
+            border: none;
+            color: white;
+            padding: 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 5px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .btn_updateCategory {border-radius: 8px;}
+
+        .select {
+            display: inline-block;
+            width: 300px;
+            position: relative;
+            vertical-align: middle;
+            padding: 0;
+            overflow: hidden;
+            background-color: #fff;
+            color: #555;
+            border: 1px solid #aaa;
+            text-shadow: none;
+            border-radius: 4px;
+            transition: box-shadow 0.25s ease;
+            z-index: 2;
+        }
+
+        .select:hover {
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        .select:before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: #ccc;
+            top: 14px;
+            right: 10px;
+            cursor: pointer;
+            z-index: -2;
+        }
+        .select select {
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            background: transparent;
+            background-image: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .select select:focus {
+            outline: none;
+        }
+
+        .normal{
+            font-weight:normal;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top">
+    <div class="dropdown" style="float: right">
+        <button class="dropbtn">admin</button>
+        <div class="dropdown-content">
+            <!--<a href="#">功能1</a>-->
+            <!--<a href="#">功能2</a>-->
+            <a href="/adminLogOut">退出</a>
+        </div>
+
+    </div>
+</div>
+<ul>
+    <li id="click_1"><a href="#">书籍管理</a></li>
+    <div class="funBackgroungColor">
+        <!--<li id="fun1" ><a href="/addBookPage">录入新书</a></li>-->
+        <li id="fun2" style="background-color: #555;"><a href="/addCategoryPage?pageNum=1">类别管理</a></li>
+        <li id="fun2" ><a href="/showBooksResultPageByCategoryId?bookCategoryS=-1&pageNum=1&bookNameS=&bookAuthorS=">查询书籍</a></li>
+    </div>
+    <li id="click_2"><a href="#">用户管理</a></li>
+    <div class="funBackgroungColor">
+        <li id="fun3" class="hidden"><a href="/showUsersPage?pageNum=1">查询用户</a></li>
+        <li id="fun4" class="hidden"><a href="/addUserPage">新增用户</a></li>
+    </div>
+    <li id="click_3"><a href="#">借阅信息</a></li>
+    <div class="funBackgroungColor">
+        <li id="fun5" class="hidden"><a href="/allBorrowBooksRecordPage?pageNum=1">所有记录</a></li>
+        <!--<li id="fun6" class="hidden"><a href="#">个人记录</a></li>-->
+    </div>
+    <!--<li id="click_4"><a href="#">帮助</a></li>-->
+    <!--<div class="funBackgroungColor">-->
+        <!--<li id="fun7" class="hidden"><a href="#">功能7</a></li>-->
+        <!--<li id="fun8" class="hidden"><a href="#">功能8</a></li>-->
+    <!--</div>-->
+</ul>
+
+<div style="margin-left:10%;padding:1px 16px;">
+    <div style="float: left;width: 20%;height: 100%"><!--左半部分-->
+        <br>
+        <h2 style="text-align: left">新建类别</h2>
+        <!-- 编号输入 bug category id 作为外键不能自动递增 -->
+        <br><br>
+        <form id="addBookCategoryForm" >
+            <!--<h3 class="normal">编号</h3>-->
+            <!--<input class="selectInput" id="categoryId" type="text" name="categoryId"><br><br>-->
+            <h3 class="normal">类别</h3>
+            <input class="selectInput" id="categoryName" type="text" name="categoryName"><br><br>
+            <input name="pageNum" value="1" style="display: none">
+            <button type="submit" id="btn_addBookCategory">添加类别</button>
+            <!--<input id="btn_addBookCategory" type="submit" value="添加类别">-->
+        </form>
+    </div>
+    <div style="float: left;width: 80%;height: 100%"><!--右半部分-->
+        <br>
+        <h2 style="text-align: center">已有类别</h2>
+        <br>
+        <table id="customers">
+            <tr>
+                <th><center>类别编号</center></th>
+                <th><center>类别名称</center></th>
+                <th><center>操作</center></th>
+            </tr>
+            <tr th:each="bookCategory:${page.getList()}">
+                <td><label th:text="${bookCategory.getCategoryId()}"></label></td>
+                <td><label th:text="${bookCategory.getCategoryName()}"></label></td>
+                <td>
+                    <button class="btn_deleteCategory" th:value="${bookCategory.getCategoryId()}">删除</button>
+                    <button class="btn_updateCategory" th:value="${bookCategory.getCategoryId()}">修改</button>
+                </td>
+            </tr>
+        </table>
+        <br><br>
+        <div style="position:absolute;right: 110px ">
+            <label id="lab1" th:text="${page.getPageNum()}"></label>/<label id="lab2" th:text="${page.getPageCount()}"></label>
+        </div>
+
+        <a id="prePage" href="/addCategoryPage?pageNum=1" th:href="@{/addCategoryPage(pageNum=${page.getPageNum()-1})}" style="position: absolute; right: 140px;background-color: #aaaaaa">上一页</a>
+        <a id="nextPage" href="/addCategoryPage?pageNum=2" th:href="@{/addCategoryPage(pageNum=${page.getPageNum()+1})}" style="position: absolute; right: 60px;background-color: #aaaaaa">下一页</a>
+
+        <div id="dialog-form" title="类别信息">
+            <p class="validateTips">所有的信息都是必填的。</p>
+            <form id="updateBookCategoryForm">
+                <fieldset>
+                    <input type="hidden" name="categoryId" id="categoryId">
+                    <label for="categoryNameUpdate">类别名称</label>
+                    <input type="text" name="categoryName" id="categoryNameUpdate" class="text ui-widget-content ui-corner-all">
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
+

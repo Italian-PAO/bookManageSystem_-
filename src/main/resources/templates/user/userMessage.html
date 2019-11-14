@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户首页</title>
+
+    <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/jquery.validate.min.js"></script>
+    <script src="/scripts/messages_zh.min.js"></script>
+    <script src="/scripts/jquery-ui.min.js"></script>
+    <script src="/scripts/user/updateUser.js"></script>
+    <script src="/scripts/base/base.js"></script>
+
+    <link href="/css/myUIstyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/css/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="/css/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="/css/user/updateUser.css">
+    <style>
+        *{
+            margin:0px auto;}
+
+        tr:nth-child(even){
+            color:#000000;
+            background-color:#EAF2D3;}
+        tr:hover{
+            background-color: #c2ffc1;}
+
+        #customers
+        {
+            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        #customers td, #customers th
+        {
+            font-size:1em;
+            border:1px solid #a3c7c4;
+            padding:3px 7px 2px 7px;
+        }
+
+        #customers th
+        {
+            font-size:1.1em;
+            text-align:left;
+            padding-top:5px;
+            padding-bottom:4px;
+            background-color:#a3c7c4;
+            color:#ffffff;
+        }
+
+        #customers tr.alt td
+        {
+            color:#000000;
+            background-color:#EAF2D3;
+        }
+
+        #selectButton{
+            padding: 15px 40px;
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        #selectButton:hover {background-color: #3e8e41}
+
+        #selectButton:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        .selectInput{
+            outline-style: none ;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 13px 14px;
+            width: 150px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: "Microsoft soft";
+        }
+
+        .updateUserBtn {
+            background-color: #33af90; /* Green */
+            border: none;
+            border: none;
+            color: white;
+            padding: 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 5px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .updateUserBtn {border-radius: 8px;}
+
+        .button2 {
+            background-color: #33af90; /* Green */
+            border: none;
+            border: none;
+            color: white;
+            padding: 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 5px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .button2 {border-radius: 8px;}
+
+        .select {
+            display: inline-block;
+            width: 300px;
+            position: relative;
+            vertical-align: middle;
+            padding: 0;
+            overflow: hidden;
+            background-color: #fff;
+            color: #555;
+            border: 1px solid #aaa;
+            text-shadow: none;
+            border-radius: 4px;
+            transition: box-shadow 0.25s ease;
+            z-index: 2;
+        }
+
+        .select:hover {
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        .select:before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: #ccc;
+            top: 14px;
+            right: 10px;
+            cursor: pointer;
+            z-index: -2;
+        }
+        .select select {
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            background: transparent;
+            background-image: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .select select:focus {
+            outline: none;
+        }
+
+        .normal{
+            font-weight:normal;
+        }
+
+        img{
+            width: 30px;
+            height: 20px;
+            position: absolute;
+            right: 0px;
+            top: 210px;
+            left: 280px;
+            margin: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top">
+    <div class="dropdown" style="float: right">
+        <button class="dropbtn"><b th:text="${session.user.getUserName()}"></b></button>
+        <div class="dropdown-content">
+            <!--<a href="#">功能1</a>-->
+            <!--<a href="#">功能2</a>-->
+            <a href="/userLogOut">退出</a>
+        </div>
+
+    </div>
+</div>
+<ul>
+    <li id="click_1"><a href="#">借阅管理</a></li>
+    <div class="funBackgroungColor">
+        <li id="fun1" class="hidden"><a href="/userBorrowingBooksPage?pageNum=1">借书记录</a></li>
+        <!--<li id="fun2" class="hidden"><a href="/borrowingPage">借阅书籍</a></li>-->
+
+    </div>
+    <li id="click_2"><a href="#">书籍管理</a></li>
+    <div class="funBackgroungColor">
+        <!--<li id="fun3" class="hidden"><a href="/userReturnBooksPage">归还书籍</a></li>-->
+        <li id="fun4" class="hidden"><a href="/showBooksResultPageByUser?pageNum=1&bookCategory=-1&bookName=&bookAuthor=">查询书籍</a></li>
+    </div>
+    <li id="click_3"><a href="#">个人信息</a></li>
+    <div class="funBackgroungColor">
+        <li id="fun5" style="background-color: #555"><a href="/userMessagePage">我的信息</a></li>
+        <!--<li id="fun6" ><a href="#">功能6</a></li>-->
+    </div>
+    <!--<li id="click_4"><a href="#">帮助</a></li>-->
+    <!--<div class="funBackgroungColor">-->
+        <!--<li id="fun7" class="hidden"><a href="#">功能7</a></li>-->
+        <!--<li id="fun8" class="hidden"><a href="#">功能8</a></li>-->
+    <!--</div>-->
+</ul>
+
+<div style="margin-left:10%;padding:1px 16px;">
+    <br>
+    <h3 style="text-align: center">个人信息</h3>
+    <br><br>
+    <table id="customers">
+        <tr>
+            <th><center>用户id</center></th>
+            <th><center>用户姓名</center></th>
+            <th><center>用户邮箱</center></th>
+            <!--<th><center>用户密码</center></th>-->
+        </tr>
+        <tr>
+            <td><b th:text="${session.user.getUserId()}"></b></td>
+            <td><b th:text="${session.user.getUserName()}"></b></td>
+            <td><b th:text="${session.user.getUserEmail()}"></b></td>
+            <!--<td><b th:text="${session.user.getUserPwd()}"></b></td>-->
+        </tr>
+    </table>
+    <br>
+    <button id="create-user" class="updateUserBtn" style="position: absolute; right: 40px;background-color: #aaaaaa;">修改信息</button>
+    <!--<p>这里有一个问题，就是修改用户信息后，session中的user对象还是以前的信息</p>-->
+    <div id="dialog-form" title="修改用户信息">
+    <p class="validateTips">所有的表单字段都是必填的。</p>
+
+    <form id="updateUserform">
+        <fieldset>
+            <label for="name">名字</label>
+            <input type="text" name="userName" id="name" th:value="${session.user.getUserName()}" class="text ui-widget-content ui-corner-all">
+            <label for="email">邮箱</label>
+            <input type="text" name="UserEmail" id="email" th:value="${session.user.getUserEmail()}" class="text ui-widget-content ui-corner-all">
+            <label for="password">密码</label>
+            <div class="input_block">
+                <img id="demo_img" src="/images/visible.png">
+                <input type="password" name="userPwd" id="password" th:value="${session.user.getUserPwd()}" class="text ui-widget-content ui-corner-all">
+            </div>
+            <!--<input type="password" name="userPwd" id="password" th:value="${session.user.getUserPwd()}" class="text ui-widget-content ui-corner-all">-->
+        </fieldset>
+    </form>
+    </div>
+</div>
+</body>
+</html>
